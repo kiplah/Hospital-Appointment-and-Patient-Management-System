@@ -1,0 +1,8 @@
+<h2>Register as Doctor</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
+  <button type="submit">Register</button>
+</form>
+<p>Already registered? <a href="{% url 'login' %}">Login</a></p>

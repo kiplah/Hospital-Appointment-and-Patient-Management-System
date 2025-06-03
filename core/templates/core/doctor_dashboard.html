@@ -1,0 +1,131 @@
+<h2>Doctor Dashboard</h2>
+<p>Welcome, Dr. {{ request.user.first_name }}</p>
+
+<h3>All Patients</h3>
+<ul>
+  {% for patient in patients %}
+    <li>
+      {{ patient.user.get_full_name }} |
+      <a href="{% url 'view_medical_history' patient.id %}">View History</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
+{% if messages %}
+  <ul style="color: green;">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if not patients %}
+  <p>No patients found.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.get_full_name }}!</p>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">login</a> to access the dashboard.</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+  <ul style="color: red;">
+    {% for error in form.non_field_errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if form.is_bound and not form.is_valid %}
+  <p>Please correct the errors below.</p>
+{% endif %}
+
+{% if form.is_valid %}
+  <p>Form submitted successfully!</p>
+{% endif %}
+
+{% if form.instance.pk %}
+  <p>Last updated: {{ form.instance.updated_at }}</p>
+{% endif %}
+
+{% if user.doctor %}
+  <p>As a doctor, you can manage patient records.</p>
+{% endif %}
+
+{% if not user.doctor %}
+  <p>You do not have permission to access this dashboard.</p>
+{% endif %}
+
+{% if not patients %}
+  <p>No patients found in the system.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.get_full_name }}!</p>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">login</a> to access the dashboard.</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+  <ul style="color: red;">
+    {% for error in form.non_field_errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if form.is_bound and not form.is_valid %}
+  <p>Please correct the errors below.</p>
+{% endif %}
+
+{% if form.is_valid %}
+  <p>Form submitted successfully!</p>
+{% endif %}
+
+{% if form.instance.pk %}
+  <p>Last updated: {{ form.instance.updated_at }}</p>
+{% endif %}
+
+{% if user.doctor %}
+  <p>As a doctor, you can manage patient records.</p>
+{% else %}
+  <p>You are logged in as a patient. You can view your own medical history.</p>
+{% endif %}
+
+{% if user.is_staff %}
+  <p>As a staff member, you can manage all patients' medical histories.</p>
+{% else %}
+  <p>You are logged in as a regular user. You can only manage your own medical history.</p>
+{% endif %}
+
+{% if not form.instance.pk %}
+  <p>No medical history has been added yet for this patient.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.get_full_name }}!</p>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">login</a> to access the dashboard.</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+  <ul style="color: red;">
+    {% for error in form.non_field_errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if form.is_bound and not form.is_valid %}
+  <p>Please correct the errors below.</p>
+{% endif %}
+
+{% if form.is_valid %}
+  <p>Form submitted successfully!</p>
+{% endif %}
+
+{% if form.instance.pk %}
+  <p>Last updated: {{ form.instance.updated_at }}</p>
+{% endif %}
