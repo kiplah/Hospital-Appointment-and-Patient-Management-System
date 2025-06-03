@@ -1,0 +1,21 @@
+<h2>Medical History for {{ patient.user.get_full_name }}</h2>
+
+{% if histories %}
+  <ul>
+    {% for h in histories %}
+      <li>
+        <strong>{{ h.updated_at }}</strong><br>
+        Diagnosis: {{ h.diagnosis }}<br>
+        Treatment: {{ h.treatment }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No medical history recorded.</p>
+{% endif %}
+
+{% if user.doctor %}
+  <a href="{% url 'add_medical_history' patient.id %}">Add Medical History</a><br>
+{% endif %}
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>

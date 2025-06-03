@@ -1,0 +1,114 @@
+<h2>Add Medical History for {{ patient.user.get_full_name }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'view_medical_history' patient.id %}">Back to History</a>
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+
+{% if messages %}
+  <ul style="color: green;">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if form.errors %}
+  <ul style="color: red;">
+    {% for field, errors in form.errors.items %}
+      <li>{{ field }}: {{ errors|join:", " }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if not user.doctor %}
+  <p>You do not have permission to add medical history.</p>
+{% endif %}
+
+{% if patient.user != user %}
+  <p>You can only add medical history for your own account.</p>
+{% endif %}
+
+{% if not patient %}
+  <p>Patient not found.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.get_full_name }}!</p>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">login</a> to add medical history.</p>
+{% endif %}
+
+{% if form.non_field_errors %}
+  <ul style="color: red;">
+    {% for error in form.non_field_errors %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if form.is_bound and not form.is_valid %}
+  <p>Please correct the errors below.</p>
+{% endif %}
+
+{% if form.is_valid %}
+  <p>Medical history added successfully!</p>
+{% endif %}
+
+{% if form.instance.pk %}
+  <p>Last updated: {{ form.instance.updated_at }}</p>
+{% endif %}
+
+{% if user.doctor %}
+  <p>As a doctor, you can add medical history for patients.</p>
+{% else %}
+  <p>You are logged in as a patient. You can view your own medical history.</p>
+{% endif %}
+
+{% if user.is_staff %}
+  <p>As a staff member, you can manage all patients' medical histories.</p>
+{% else %}
+  <p>You are logged in as a regular user. You can only manage your own medical history.</p>
+{% endif %}
+
+{% if not form.instance.pk %}
+  <p>No medical history has been added yet for this patient.</p>
+{% endif %}
+
+{% if form.instance.diagnosis %}
+  <p>Diagnosis: {{ form.instance.diagnosis }}</p>
+{% endif %}
+
+{% if form.instance.treatment %}
+  <p>Treatment: {{ form.instance.treatment }}</p>
+{% endif %}
+
+{% if form.instance.updated_at %}
+  <p>Last updated at: {{ form.instance.updated_at }}</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+  <p>You can view your medical history <a href="{% url 'view_medical_history' patient.id %}">here</a>.</p>
+{% else %}
+  <p>Please <a href="{% url 'login' %}">login</a> to view your medical history.</p>
+{% endif %}
+
+{% if user.is_authenticated and user.doctor %}
+  <p>As a doctor, you can view and manage all patients' medical histories.</p>
+{% else %}
+  <p>You can only view your own medical history.</p>
+{% endif %}
+
+{% if form.instance.pk %}
+  <p>Medical history ID: {{ form.instance.id }}</p>
+{% endif %}
+
+{% if form.instance.created_at %}
+  <p>Created at: {{ form.instance.created_at }}</p>
+{% endif %}
+
+{% if form.instance.updated_at %}
+  <p>Last updated at: {{ form.instance.updated_at }}</p>
+{% endif %}
