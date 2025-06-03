@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Appointments</title>
+</head>
+<body>
+  <h2>Your Upcoming Appointments</h2>
+
+  {% if appointments %}
+    <ul>
+      {% for a in appointments %}
+        <li>{{ a.appointment_date }} with Dr. {{ a.doctor_name }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have no appointments scheduled.</p>
+  {% endif %}
+
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</body>
+</html>
