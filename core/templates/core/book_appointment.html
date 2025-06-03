@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Appointment</title>
+</head>
+<body>
+  <h2>Book Appointment</h2>
+
+  {% if messages %}
+    <ul style="color: green;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Book</button>
+  </form>
+
+  <p>Need to cancel an appointment? 
+  <p>Want to view your appointments? 
+
+  <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</body>
+</html>
