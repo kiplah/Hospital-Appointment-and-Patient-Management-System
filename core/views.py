@@ -47,3 +47,7 @@ def cancel_appointment(request, appointment_id):
     appointment.delete()
     messages.success(request, "Appointment cancelled.")
     return redirect('dashboard')
+@login_required
+def view_appointments(request):
+    appointments = Appointment.objects.filter(patient=request.user.patient).order_by('appointment_date')
+    return render(request, 'core/view_appointments.html', {'appointments': appointments})
