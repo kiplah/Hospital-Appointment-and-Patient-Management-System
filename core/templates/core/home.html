@@ -3,66 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <title>Hospital Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background: #f7f9fc;
+      background-color: #f8f9fa;
     }
-    .hero {
-      background-color: #007bff;
-      color: white;
-      padding: 60px 30px;
+    .section-title {
+      margin-top: 60px;
+      margin-bottom: 20px;
       text-align: center;
-      border-radius: 0 0 30px 30px;
-    }
-    .card {
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-      transition: 0.3s;
     }
     .card:hover {
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    .footer {
-      margin-top: 60px;
-      padding: 20px;
-      text-align: center;
-      font-size: 0.9em;
-      color: #777;
+    footer {
+      background: #343a40;
+      color: #ccc;
+      padding: 30px 0;
+    }
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1>Hospital Appointment & Patient Management System</h1>
-  <p>Secure | Streamlined | Smart</p>
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">Hospital System</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#support">Help & Support</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+        <li class="nav-item"><a class="nav-link btn btn-light btn-sm text-dark ms-2" href="{% url 'choose_role' %}" class="btn btn-light btn-sm text-dark ms-2">Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Hero Section -->
+<div class="container text-center py-5">
+  <h1 class="display-5 fw-bold">Hospital Appointment & Patient Management</h1>
+  <p class="lead text-muted">Secure | Streamlined | Smart Healthcare System</p>
 </div>
 
-<div class="container mt-5">
+<!-- ✅ Role Cards -->
+<div class="container mb-5">
   <div class="row g-4">
     <div class="col-md-6">
-      <div class="card p-4 text-center">
-        <h3>Patient</h3>
-        <p>Register, book appointments, and access your medical history securely.</p>
-        <a href="{% url 'register' %}" class="btn btn-primary">Register as Patient</a><br><br>
-        <a href="{% url 'login' %}" class="btn btn-outline-primary">Patient Login</a>
+      <div class="card p-4 text-center h-100">
+        <h4>For Patients</h4>
+        <p>Register, book appointments, and view your health history online.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary mb-2">Register as Patient</a><br>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login as Patient</a>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="card p-4 text-center">
-        <h3>Doctor</h3>
-        <p>Access patients, manage medical records, and monitor appointments efficiently.</p>
-        <a href="{% url 'register_doctor' %}" class="btn btn-success">Register as Doctor</a><br><br>
-        <a href="{% url 'login' %}" class="btn btn-outline-success">Doctor Login</a>
+      <div class="card p-4 text-center h-100">
+        <h4>For Doctors</h4>
+        <p>Access patient records and manage appointments securely.</p>
+        <a href="{% url 'register_doctor' %}" class="btn btn-success mb-2">Register as Doctor</a><br>
+        <a href="{% url 'login' %}" class="btn btn-outline-success">Login as Doctor</a>
       </div>
     </div>
   </div>
 </div>
 
-<div class="footer">
-  &copy; {{ now|date:"Y" }} Hospital System | Designed with 💙
+<!-- ✅ About Section -->
+<div class="container" id="about">
+  <h2 class="section-title">About Us</h2>
+  <p class="text-center">We are dedicated to transforming the way healthcare is managed through secure, modern technology. Our system ensures seamless communication between patients and doctors while preserving sensitive data.</p>
 </div>
 
+<!-- ✅ FAQ Section -->
+<div class="container" id="faq">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <ul>
+    <li><strong>Is this system secure?</strong> Yes, we use encryption and access control to protect your data.</li>
+    <li><strong>Can I cancel appointments?</strong> Yes, you can manage all your appointments after logging in.</li>
+    <li><strong>Is this free to use?</strong> Yes, it's completely free for patients and healthcare staff.</li>
+  </ul>
+</div>
+
+<!-- ✅ Support Section -->
+<div class="container mb-5" id="support">
+  <h2 class="section-title">Help & Support</h2>
+  <p class="text-center">Need assistance? Contact us at <a href="mailto:support@hospital-system.com">support@hospital-system.com</a></p>
+</div>
+
+<!-- ✅ Footer -->
+<footer>
+  <div class="container text-center">
+    <p>&copy; {{ now|date:"Y" }} Hospital Management System. All rights reserved.</p>
+    <p>
+      <a href="#about">About</a> |
+      <a href="#faq">FAQs</a> |
+      <a href="#support">Help</a> |
+      <a href="{% url 'login' %}">Login</a> |
+      <a href="{% url 'choose_role' %}" class="btn btn-light btn-sm text-dark ms-2">Register</a>
+
+    </p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,8 +1,92 @@
-<h2>Welcome, {{ request.user.first_name }}</h2>
-<a href="{% url 'book_appointment' %}">Book Appointment</a>
-<ul>
-  {% for a in appointments %}
-    <li>{{ a.doctor_name }} – {{ a.appointment_date }}</li>
-  {% endfor %}
-</ul>
-<a href="{% url 'logout' %}">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .profile-badge {
+      float: right;
+      background: #e9ecef;
+      padding: 10px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Welcome, {{ request.user.first_name }}</h2>
+    <div class="profile-badge">
+      👤 {{ user.get_full_name }}
+    </div>
+  </div>
+
+  <div class="mb-3 text-center">
+    <a href="{% url 'book_appointment' %}" class="btn btn-success">Book Appointment</a>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary ms-2">Back to Home</a>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">Your Upcoming Appointments</div>
+    <div class="card-body">
+      {% if appointments %}
+        <ul class="list-group">
+          {% for a in appointments %}
+            <li class="list-group-item">
+              <strong>{{ a.appointment_date|date:"M d, Y H:i" }}</strong> with Dr. {{ a.doctor_name }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-muted">You have no upcoming appointments.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header bg-success text-white">Available Doctors</div>
+    <div class="card-body">
+      {% if doctors %}
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Doctor Name</th>
+              <th>Specialization</th>
+              <th>Book</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for doc in doctors %}
+              <tr>
+                <td>{{ doc.user.get_full_name }}</td>
+                <td>{{ doc.specialization }}</td>
+                <td>
+                  <a href="{% url 'book_appointment' %}?doctor={{ doc.id }}" class="btn btn-outline-success btn-sm">Book Now</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No doctors available right now.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+  </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Optional: Add any JavaScript you need for this page
+    console.log('Patient Dashboard loaded');
+  });
+</script>
