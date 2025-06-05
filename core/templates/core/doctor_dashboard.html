@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Doctor Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     .container {
@@ -21,14 +22,18 @@
 
 <div class="container">
   <div class="card p-4">
-    <h2 class="text-primary">Doctor Dashboard</h2>
-    <p class="lead">Welcome, Dr. {{ request.user.get_full_name }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h2 class="text-primary">Doctor Dashboard</h2>
+        <p class="lead">Welcome, Dr. {{ request.user.get_full_name }}</p>
+      </div>
+      <a href="#" class="btn btn-outline-secondary">👤 My Profile</a>
+    </div>
 
     {% if user.doctor %}
       <div class="alert alert-info">You can view, add, and manage patient medical histories.</div>
     {% endif %}
 
-    <!-- ✅ Messages -->
     {% if messages %}
       <div class="alert alert-success">
         {% for message in messages %}
@@ -37,18 +42,17 @@
       </div>
     {% endif %}
 
-    <!-- ✅ Search Form -->
+    <!-- 🔍 Search Form -->
     <form method="GET" class="input-group mb-3">
       <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search patients by name or email...">
       <button class="btn btn-outline-primary" type="submit">Search</button>
     </form>
 
-    <!-- ✅ Patient Table -->
+    <!-- 🧾 Patient Table -->
     {% if patients %}
       <table class="table table-striped table-hover mt-3">
         <thead class="table-dark">
           <tr>
-            <th>#</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -59,7 +63,6 @@
         <tbody>
           {% for patient in patients %}
             <tr>
-              <td>{{ forloop.counter }}</td>
               <td>{{ patient.user.get_full_name }}</td>
               <td>{{ patient.user.email }}</td>
               <td>{{ patient.phone }}</td>
@@ -72,11 +75,10 @@
             </tr>
           {% endfor %}
         </tbody>
-        <a href="#" class="btn btn-outline-secondary btn-sm mt-3">Export Patients (Coming Soon)</a>
-
       </table>
+      <a href="#" class="btn btn-outline-secondary btn-sm mt-3">📤 Export Patients (Coming Soon)</a>
     {% else %}
-      <p class="text-muted">No patients found for your search.</p>
+      <p class="text-muted mt-3">No patients found for your search.</p>
     {% endif %}
 
     <div class="mt-4">
@@ -85,7 +87,7 @@
   </div>
 </div>
 
-<!-- ✅ Footer -->
+<!-- 🦶 Footer -->
 <div class="footer">
   &copy; {{ now|date:"Y" }} Hospital System. All rights reserved.
 </div>

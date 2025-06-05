@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.contrib import admin
 from . import views
 
 urlpatterns = [
@@ -15,5 +16,7 @@ urlpatterns = [
     path('history/add/<int:patient_id>/', views.add_medical_history, name='add_medical_history'),
     path('history/edit/<int:history_id>/', views.edit_medical_history, name='edit_medical_history'),
     path('history/delete/<int:history_id>/', views.delete_medical_history, name='delete_medical_history'),
+    path('admin/', admin.site.urls),
+    #path('', include('core.urls')),
 
 ]
